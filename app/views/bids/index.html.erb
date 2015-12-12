@@ -1,0 +1,6 @@
+<h2>My Bids</h2>
+
+<% current_user.bids.each do |bid| %>
+	<p class="well"><%= link_to bid.list.title, list_path(bid.list)%></p>
+	<hr>
+<% end %>

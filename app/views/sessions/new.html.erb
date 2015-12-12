@@ -1,11 +1,6 @@
 
 <div class="container">
       <h3>Welcome Back</h3>
-      <% if flash[:alert] %>
-        <div class="alert alert-danger alert-custom">
-          <%= flash[:alert] %>
-        </div>
-      <% end %> 
         <div class="">
           <%= form_tag sessions_path do |f| %>
             <div>

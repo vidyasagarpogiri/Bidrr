@@ -5,7 +5,7 @@ class PublishingsController < ApplicationController
 	  def create
     	list = List.find params[:list_id]
       @current_price = list.bids.maximum(:amount)
-    if (list.published?) && (@current_price >= list.reserve_price)
+    if (list.bids.first != nil) && ((list.published?) && (@current_price >= list.reserve_price))
     	list.publish
       list.save
       redirect_to list, notice: "Succesfull met reserve price"

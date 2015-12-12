@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :bidded_lists, through: :bids, source: :list
 
 
-	validates :email, presence: true, presence: true,
+	validates :email, presence: true,
 														format:  {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i}
 													
 	validates :first_name, presence: true
