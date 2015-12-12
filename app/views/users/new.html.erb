@@ -1,0 +1,17 @@
+<div class="container jumbotron">
+  <h3>Sign Up</h3>
+    <%= simple_form_for @user do |f| %>
+    <%#= render 'layouts/error_messages_user' %>
+      <%= f.input :first_name, placeholder: 'Aaron' %>
+      <%= f.input :last_name, placeholder: 'Bui'%>
+      <%= f.input :email, placeholder: 'Aaronbui@gmail.com' %>
+      <%= f.input :password%>
+      <%= f.input :password_confirmation %>
+    <%= button_tag(type: 'submit', class: "btn btn-default full-width") do %>
+                  <span class="glyphicon glyphicon-ok"></span>
+    <% end %>
+    <%= link_to "Cancel", root_path, class:"cancel-forget-password"%> 
+    | 
+    <%= link_to "Sign In", new_session_path, class:"cancel-forget-password" %>
+  <% end %>
+</div>

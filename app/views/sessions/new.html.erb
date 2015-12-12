@@ -1,0 +1,28 @@
+
+<div class="container">
+      <h3>Welcome Back</h3>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger alert-custom">
+          <%= flash[:alert] %>
+        </div>
+      <% end %> 
+        <div class="">
+          <%= form_tag sessions_path do |f| %>
+            <div>
+              <%= label_tag :email %>
+              <%= email_field_tag :email,"" %>
+            </div>
+            <div>
+              <%= label_tag :password %>
+              <%= password_field_tag :password, ""%>
+            </div>
+            <%= button_tag(type: 'submit', class: "btn btn-default full-width") do %>
+              <span class="glyphicon glyphicon-ok"></span>
+            <% end %>
+              <%= link_to "Sign Up", new_user_path%>|
+              <%= link_to "Forgot Password", new_user_path%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+</div>
