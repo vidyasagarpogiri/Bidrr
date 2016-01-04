@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211211733) do
+ActiveRecord::Schema.define(version: 20160103230802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "auctions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "details"
+    t.date     "ends_on"
+    t.integer  "reserve_price"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "bids", force: :cascade do |t|
     t.integer  "list_id"
@@ -36,6 +45,7 @@ ActiveRecord::Schema.define(version: 20151211211733) do
     t.datetime "updated_at",              null: false
     t.integer  "user_id"
     t.string   "aasm_state"
+    t.money    "current_price", scale: 2
   end
 
   add_index "lists", ["user_id"], name: "index_lists_on_user_id", using: :btree

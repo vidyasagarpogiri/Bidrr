@@ -1,0 +1,5 @@
+$("#bids").prepend("<%= j render '/bids/bid', bid: @bid %>");
+<% @bid = Bid.new %>
+$("#new_bid").replaceWith("<%= j render 'form' %>")
+
+

@@ -16,7 +16,7 @@ class BidsController < ApplicationController
       if (@list.bids.first == nil) || (@list.bids.maximum(:amount) < @bid.amount) 
         respond_to do |format|
           if @bid.save
-            format.html { redirect_to list_path(@list), notice: "bid added. Wee!" }
+            format.html { redirect_to list_path(@list), notice: "Bid Successfully. Wee!" }
             format.js {render :create_success}
           else
             format.html { render "lists/show" }
@@ -27,7 +27,7 @@ class BidsController < ApplicationController
         redirect_to list_path(@list), alert: "Bid amount is too low, Sorry =("
       end
     else
-      redirect_to list_path(@list), alert: "Sorry cant bid on your own"
+      redirect_to list_path(@list), notice: "Sorry can't bid on your own."
     end
   end
 

@@ -1,54 +1,55 @@
-<div class="jumbotron">
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @list.title %>
-</p>
-<p>
-  <strong>Details:</strong>
-  <%= @list.details %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @list.end_date %>
-</p>
-
-<p>
-  <strong>Reserve price:</strong>
-  <%= @list.reserve_price %>
-</p>
-<%= link_to 'Edit', edit_list_path(@list) %> |
-<%= link_to 'Back', lists_path %>
-<p class="pull-right">Current price: $ <%= @current_price %><p>
-<br>
-<div class="pull-right">
-	<% if @list.published? %>
-		<%= link_to "Reserve", list_publishings_path(@list), method: :post %>
-	<% end%>
-	<button class="btn btn-primary">
-		<% if @list.aasm_state == "reserve_met" %>
-			Reserve Price MET!
-		<%else %>
-			Reserve Price not MET!
-		<% end %>
-	</button>
-</div>
-</div>
-
-<h4>Bid Now!</h4>
-	<div class="jumbotron">
-		<%= render "/bids/form" %>
-	</div>
-<hr>
-<h4>Previous Bids:</h4>
-	<div class="jumbotron">
-		<div id="bids">
-		  <% @list.bids.order('created_at DESC').each do |bid| %>
-		    $ <%= bid.amount%> at <%= (bid.created_at).strftime('%B %d, %Y') %> <p>By: <%= bid.user.full_name%><p>
-		    <br>
-		  <% end %>
+<div class="col-md-8">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+		  <h3 class="panel-title"><%= @list.title %></h3>
+		</div>
+		<div class="panel-body">
+			<p>Details: <strong><%= @list.details %></strong></p>
+			<p>End date: <strong><%= (@list.end_date).strftime("%A, %B %e at %m:%S %p") %></strong></p>
+			<p>Reserve price: <strong><%= number_to_currency(@list.reserve_price) %></strong> </p>
+			<%= link_to 'Edit', edit_list_path(@list) %> |
+			<%= link_to 'Remove', @list, method: :delete, data: { confirm: 'Are you sure?' } %>
+			<p class="pull-right"><small>Current price:</small><strong><%= number_to_currency(@current_price) %></strong><p>
+			<% if @list.published? %>
+				<%= link_to "Reserve", list_publishings_path(@list), method: :post %>
+			<% end%>
+			<div class="label label-primary">
+				<% if @list.aasm_state == "reserve_met" %>
+					Reserve Met
+				<%else %>
+					Reserve not Met
+				<% end %>
+			</div>
 		</div>
 	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Bid Now !</h4>
+		</div>
+		<div class="panel-content">
+			<%= render "/bids/form" %>
+		</div>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	  	<h4>Previous Bids:</h4>
+		</div>
+	  <div class="panel-body">
+	    <div id="bids">
+			  <% @list.bids.order('created_at DESC').each do |bid| %>
+			    <strong><%= number_to_currency(bid.amount)%></strong> on <strong><%= (bid.created_at).strftime('%B %d, %Y') %></strong> 
+			    <br>
+			  <% end %>
+			</div>
+	  </div>
+	</div>
+</div>
 
+
+			<!-- <div id="bids"> -->
+        <%# @list.bids.each do |bid| %>
+          <%#= render "/bids/bid" , bid: bid%>
+        <%# end %>
+      <!-- </div> -->

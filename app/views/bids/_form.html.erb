@@ -1,6 +1,9 @@
 <%= simple_form_for [@list, @bid] do |f| %>
-<%= f.input :amount %>
-<div class="pull-right">
-	<%= f.button :submit %>
-</div>
+  <%#= @bid.errors.full_messages.join(", ") %>
+  <div class="form-group">
+	  <%= f.input :amount, class: "form-control", placeholder: "Enter an amount here"%>
+	</div>
+  <div>
+    <%= f.submit "Bid !", class: "btn btn-success btn-xs", data: {disable_with: "Saving..."} %>
+	</div>
 <% end %>

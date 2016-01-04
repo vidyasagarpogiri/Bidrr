@@ -8,12 +8,17 @@
 </head>
 <body>
 	<%= render "/layouts/nav"%>
-   <% if flash[:notice] %>
-     <div class="alert alert-success"><%= flash[:notice] %></div>
-   <% elsif flash[:alert] %>
-     <div class="alert alert-danger"><%= flash[:alert] %></div>
-   <% end %>
 <div class="container">
+  <%= image_tag("auctioneer.jpg", size: "250", alt: "Edit Entry")%>
+</div>
+<div class="container">
+  <div class="col-md-12">
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
+  </div>
 	<%= yield %>
 </div>
 </body>
