@@ -3,6 +3,12 @@ class Bid < ActiveRecord::Base
   belongs_to :user
 
   validates :amount, presence: true
-  # validate :amount_greater_than_current_price
-  # validate :current_user_is_not_list_user
+  validate :greater_than_current_price
+
+  def greater_than_current_price
+      if !amount.blank? && amount < self.list.current_price.to_i
+        errors.add(:amount, "Must be greater than current price")
+    end
+  end
+
 end

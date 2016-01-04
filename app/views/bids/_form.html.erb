@@ -1,7 +1,16 @@
-<%= simple_form_for [@list, @bid] do |f| %>
-  <%#= @bid.errors.full_messages.join(", ") %>
+<%= form_for [@list, @bid] do |f| %>
+  <% if @bid.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @bid.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="form-group">
-	  <%= f.input :amount, class: "form-control", placeholder: "Enter an amount here"%>
+	  <%= f.text_field :amount, class: "form-control", placeholder: "Enter an amount here"%>
 	</div>
   <div>
     <%= f.submit "Bid !", class: "btn btn-success btn-xs", data: {disable_with: "Saving..."} %>

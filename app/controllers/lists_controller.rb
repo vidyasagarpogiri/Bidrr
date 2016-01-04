@@ -9,7 +9,6 @@ class ListsController < ApplicationController
 
   def show
     @bid = Bid.new
-    @current_price = @list.bids.maximum(:amount)
   end
 
   def new
@@ -21,7 +20,7 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-      @list.user = current_user
+    @list.user = current_user
     respond_to do |format|
       if @list.save
         format.html { redirect_to @list, notice: 'List was successfully created.' }

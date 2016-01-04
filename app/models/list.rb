@@ -11,11 +11,18 @@ class List < ActiveRecord::Base
 	validates :details, presence: true 
 	validates :end_date, presence: true 
 	validates :reserve_price, presence: true
+  validate  :end_date_is_in_future
 
   before_create do
     self.current_price = AUCTION_DEFAULT_PRICE
   end
-  
+
+  def end_date_is_in_future
+    if !end_date.blank? && end_date < Date.today
+      errors.add(:end_date, "can't be in the past")
+    end
+  end
+
   include AASM
   aasm whiny_transitions: false do
     state :published, initial: true
@@ -27,10 +34,14 @@ class List < ActiveRecord::Base
     event :publish do
       transitions from: :published, to: :reserve_met
     end
+
     event :cancel do
       transitions from: :reserve_met, to: :published
     end
 
+    event :was_won do
+      transitions from: :reserve_met, to: :won
+    end
   end
 
 

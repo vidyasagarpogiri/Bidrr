@@ -7,12 +7,10 @@
 			<p>Details: <strong><%= @list.details %></strong></p>
 			<p>End date: <strong><%= (@list.end_date).strftime("%A, %B %e at %m:%S %p") %></strong></p>
 			<p>Reserve price: <strong><%= number_to_currency(@list.reserve_price) %></strong> </p>
+			<p>Listed By: <strong><%= @list.user.full_name %></strong> </p>
 			<%= link_to 'Edit', edit_list_path(@list) %> |
 			<%= link_to 'Remove', @list, method: :delete, data: { confirm: 'Are you sure?' } %>
-			<p class="pull-right"><small>Current price:</small><strong><%= number_to_currency(@current_price) %></strong><p>
-			<% if @list.published? %>
-				<%= link_to "Reserve", list_publishings_path(@list), method: :post %>
-			<% end%>
+			<p class="pull-right"><small>Current price: </small><strong><%= number_to_currency(@list.current_price) %></strong><p>
 			<div class="label label-primary">
 				<% if @list.aasm_state == "reserve_met" %>
 					Reserve Met

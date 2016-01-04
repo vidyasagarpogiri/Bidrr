@@ -7,15 +7,18 @@ class BidsController < ApplicationController
     @bids = current_user.bids
   end
 
-	def create
+  def create
     @list = List.find(params[:list_id])
     if @list.user != current_user
-      @bid = Bid.new(bid_params)
+      @bid  = @list.bids.new bid_params
       @bid.user = current_user
       @bid.list = @list
-      if (@list.bids.first == nil) || (@list.bids.maximum(:amount) < @bid.amount) 
+      if @bid.amount && @bid.amount > @list.current_price.to_i
         respond_to do |format|
           if @bid.save
+            list = List.find(@list)
+            list.current_price = @bid.amount
+            list.save
             format.html { redirect_to list_path(@list), notice: "Bid Successfully. Wee!" }
             format.js {render :create_success}
           else
@@ -26,8 +29,13 @@ class BidsController < ApplicationController
       else
         redirect_to list_path(@list), alert: "Bid amount is too low, Sorry =("
       end
+      if @bid.amount && @bid.amount > @list.reserve_price.to_f
+        list = List.find(@list)
+        list.publish
+        list.save
+      end
     else
-      redirect_to list_path(@list), notice: "Sorry can't bid on your own."
+     redirect_to list_path(@list), notice: "Sorry can't bid on your own."
     end
   end
 
