@@ -1,4 +1,4 @@
 
 ==Auction Bidding Web App 
 
-Built within few hours to test TDD with rspec and state machine
+Built within few hours as final exam requirements for Codecore Development Bootcamp.
