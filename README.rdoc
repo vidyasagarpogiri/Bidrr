@@ -1,4 +1,4 @@
 
 ==Auction Bidding Web App 
 
-Built within few hours as final exam requirements for Codecore Development Bootcamp.
+Built within few hours as a final exam requirement for Codecore Development Bootcamp.
